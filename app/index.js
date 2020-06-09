@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const axios = require('axios');
 
 /**
  * Home page: muestra todos los ítems disponibles para comprar
@@ -29,7 +30,7 @@ router.post('/generarQR', function(req, res) {
     data.baseurl = req.protocol + '://' + req.get('host');
 
 
-    var axios = require('axios');
+
     var data = {
         "external_reference": "Factura-0001",
         "notification_url": "www.yourserver.com",
