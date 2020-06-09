@@ -67,18 +67,18 @@
 
 
         const options = {
-            host: 'https://api.mercadopago.com/mpmobile/instore/qr/'.userId.'/'.externalId.'?access_token='.accessToken,
+            url: `https://api.mercadopago.com/mpmobile/instore/qr/${userId}/${externalId}?access_token=${accessToken}`,
             method: 'POST',
             headers: {
-                'Content-Type': 'application/text',
+                'Content-Type': 'text/plain',
             },
             body: body
-
         };
 
 
-        const req = http.request(options, (res) => {
-            console.log(res);
+        request(options, function (error, response) {
+            if (error) throw new Error(error);
+            console.log(response.body);
         });
 
 
