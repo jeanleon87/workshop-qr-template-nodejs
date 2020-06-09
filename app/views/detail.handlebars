@@ -44,13 +44,8 @@
 
     function createOrder() {
 
-        var request = require('request');
-
-        var accessToken = 'APP_USR-3877150961712175-060915-018ba42fa9fd584bcb54871ce13534cd-581910860';
-        var userId = '581910860';
-        var externalId = 'CAJA0002';
-
-        var body = {
+        var axios = require('axios');
+        var data = {
             "external_reference": "Factura-0001",
             "notification_url": "www.yourserver.com",
             "items": [{
@@ -63,23 +58,24 @@
             }
             ],
             "sponsor_id": 446566691
-        }
-
-
-        const options = {
-            url: `https://api.mercadopago.com/mpmobile/instore/qr/${userId}/${externalId}?access_token=${accessToken}`,
-            method: 'POST',
-            headers: {
-                'Content-Type': 'text/plain',
-            },
-            body: body
         };
 
+        var config = {
+            method: 'post',
+            url: 'https://api.mercadopago.com/mpmobile/instore/qr/581910860/CAJA0002?access_token=APP_USR-3877150961712175-060915-018ba42fa9fd584bcb54871ce13534cd-581910860',
+            headers: {
+                'Content-Type': 'text/plain'
+            },
+            data: data
+        };
 
-        request(options, function (error, response) {
-            if (error) throw new Error(error);
-            console.log(response.body);
-        });
+        axios(config)
+            .then(function (response) {
+                console.log(JSON.stringify(response.data));
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
 
 
 
