@@ -13,18 +13,24 @@
                     <hr class="p-0 m-0">
                 </div>
                 <div class="col-lg-3">
-                    <br><h6>Cantidad :</h6>
+                    <br>
+                    <h6>Cantidad :</h6>
                     <input id="product_quantity" type="number" class="form-control text-center w-100" value="1">
                 </div>
                 <div class="col-lg-12 mt-3">
                     <div class="row">
                         <div class="col-lg-12">
-                            <button id="create_button" onclick="createOrder()" class="mp-button mp-button-create">Generar Orden</button>
-                            <button hidden id="cancel_button" onclick="cancelOrder()" class="mp-button mp-button-cancel">Cancelar Orden</button>
+                            <button id="create_button" onclick="createOrder()"
+                                class="mp-button mp-button-create">Generar Orden</button>
+                            <button hidden id="cancel_button" onclick="cancelOrder()"
+                                class="mp-button mp-button-cancel">Cancelar Orden</button>
                             <br><br>
-                            <h5 id="order_status"></h5><!--Actualice aquí el estado de la órden-->
+                            <h5 id="order_status"></h5>
+                            <!--Actualice aquí el estado de la órden-->
                             <hr>
-                            <img src="assets/images/25092090289943c6980eda6956569983e903f812bcb342fd847059bad88df2cc.png" class="border p-3" style="width: 80%;"><!--Completar src con URL de imagen de tu QR de pago-->
+                            <img src="assets/images/25092090289943c6980eda6956569983e903f812bcb342fd847059bad88df2cc.png"
+                                class="border p-3" style="width: 80%;">
+                            <!--Completar src con URL de imagen de tu QR de pago-->
                             <br><br>
                         </div>
                     </div>
@@ -37,10 +43,30 @@
 <script>
 
     function createOrder() {
-        //Invocar aquí al backend para crear la orden 
+
+        var accessToken = 'APP_USR-3877150961712175-060915-018ba42fa9fd584bcb54871ce13534cd-581910860';
+        var userId = '581910860';
+        var externalId = 'CAJA0002';
+    
+
+        const options = {
+            host: 'https://api.mercadopago.com/mpmobile/instore/qr/'.userId.'/'.externalId.'?access_token=' .accessToken;
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/text',
+            }
+
+        };
+
+
+        const req = http.request(options, (res) => {
+            console.log(res);
+        });
+
+
 
     }
- 
+
     function cancelOrder() {
         //Invocar aquí al backend para cancelar la orden
 
@@ -53,13 +79,13 @@
     var pollInterval = undefined;
 
     function startStatusPolling() {
-        pollInterval = setInterval( 
-            function() { 
+        pollInterval = setInterval(
+            function () {
                 $.ajax({
                     url: "", //Completar con endpoint de backend y los parámetros necesarios para obtener el estado
                     dataType: 'json',
                     type: 'get',
-                    success: function(data) {
+                    success: function (data) {
                         //Actualizar estado actual en pantalla
 
                     },
@@ -67,12 +93,12 @@
                         console.log('Error:', data);
                     }
                 });
-            }, 
+            },
             3000
         );
     };
-    
-    function stopStatusPolling(){
+
+    function stopStatusPolling() {
         clearInterval(pollInterval);
     }
 
