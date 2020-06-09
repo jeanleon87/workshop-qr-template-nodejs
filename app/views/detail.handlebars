@@ -39,26 +39,27 @@
         </div>
     </div>
 </div>
-
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
 
     function createOrder() {
 
-        $.ajax({
-            url: "/generarQR", //Completar con endpoint de backend y los parámetros necesarios para obtener el estado
-            dataType: 'json',
-            type: 'POST',
-            success: function (data) {
-                //Actualizar estado actual en pantalla
-
-                console.log(data);
-
-            },
-            error: function (data) {
-                console.log('Error:', data);
-            }
-        });
-
+        axios.get('https://jsonplaceholder.typicode.com/todos/1', {
+            responseType: 'json'
+        })
+            .then(function (res) {
+                if (res.status == 200) {
+                    console.log(res.data);
+                    mensaje.innerHTML = res.data.title;
+                }
+                console.log(res);
+            })
+            .catch(function (err) {
+                console.log(err);
+            })
+            .then(function () {
+                loading.style.display = 'none';
+            });
 
     }
 
