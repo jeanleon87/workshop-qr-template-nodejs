@@ -44,17 +44,35 @@
 
     function createOrder() {
 
+        var request = require('request');
+
         var accessToken = 'APP_USR-3877150961712175-060915-018ba42fa9fd584bcb54871ce13534cd-581910860';
         var userId = '581910860';
         var externalId = 'CAJA0002';
-    
+
+        var body = {
+            "external_reference": "Factura-0001",
+            "notification_url": "www.yourserver.com",
+            "items": [{
+                "title": "Producto 1",
+                "currency_id": ARS,
+                "unit_price": 120.00,
+                "quantity": 1,
+                "description": "Producto de Mercado Pago",
+                "picture_url": "https://bit.ly/2lCRcEN"
+            }
+            ],
+            "sponsor_id": 446566691
+        }
+
 
         const options = {
-            host: 'https://api.mercadopago.com/mpmobile/instore/qr/'.userId.'/'.externalId.'?access_token=' .accessToken;
+            host: 'https://api.mercadopago.com/mpmobile/instore/qr/'.userId.'/'.externalId.'?access_token='.accessToken,
             method: 'POST',
             headers: {
                 'Content-Type': 'application/text',
-            }
+            },
+            body: body
 
         };
 
