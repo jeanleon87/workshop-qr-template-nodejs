@@ -44,21 +44,36 @@
 
     function createOrder() {
 
-        axios.get('https://jsonplaceholder.typicode.com/todos/1', {
-            responseType: 'json'
-        })
-            .then(function (res) {
-                if (res.status == 200) {
-                    console.log(res.data);
-                    mensaje.innerHTML = res.data.title;
-                }
-                console.log(res);
+        var data = {
+            "external_reference": "Factura-0001",
+            "notification_url": "www.yourserver.com",
+            "items": [{
+                "title": "Producto 1",
+                "currency_id": ARS,
+                "unit_price": 120.00,
+                "quantity": 1,
+                "description": "Producto de Mercado Pago",
+                "picture_url": "https://bit.ly/2lCRcEN"
+            }
+            ],
+            "sponsor_id": 446566691
+        };
+
+        var config = {
+            method: 'post',
+            url: 'https://api.mercadopago.com/mpmobile/instore/qr/581910860/CAJA0002?access_token=APP_USR-3877150961712175-060915-018ba42fa9fd584bcb54871ce13534cd-581910860',
+            headers: {
+                'Content-Type': 'text/plain'
+            },
+            data: data
+        };
+
+        axios(config)
+            .then(function (response) {
+                console.log(JSON.stringify(response.data));
             })
-            .catch(function (err) {
-                console.log(err);
-            })
-            .then(function () {
-                loading.style.display = 'none';
+            .catch(function (error) {
+                console.log(error);
             });
 
     }
