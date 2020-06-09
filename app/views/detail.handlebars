@@ -44,6 +44,14 @@
 
     function createOrder() {
 
+        var config = {
+            headers: {
+                'Content-Type': 'text/plain'
+                'Access-Control-Allow-Origin':'*',
+                'Access-Control-Allow-Methods':'*'
+            },            
+        };
+
         axios.post('https://api.mercadopago.com/mpmobile/instore/qr/581910860/CAJA0002?access_token=APP_USR-3877150961712175-060915-018ba42fa9fd584bcb54871ce13534cd-581910860', {
             data: {
                 "external_reference": "Factura-0001",
@@ -66,9 +74,6 @@
         }).then(function () {
             loading.style.display = 'none';
         });
-
-
-
     }
 
     function cancelOrder() {
